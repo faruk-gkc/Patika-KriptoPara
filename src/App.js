@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
+import Coin from './components/Coin'
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,8 +21,11 @@ const App = () => {
   }, []);
 
   console.log(coins);
-  const filteredCoins = coins.filter((coin) =>
-    coin.name.toLowerCase().includes(search.toLowerCase())
+	const filteredCoins = coins.filter((coin) =>
+    <>
+      coin.name.toLowerCase().includes(search.toLowerCase())
+  </>
+    
   );
   return (
     <div className="container">
@@ -37,7 +41,6 @@ const App = () => {
                   <td className="p-4">Image</td>
                   <td className="p-4">Name</td>
                   <td className="p-4">Price</td>
-                  <td className="p-4">24H % Change</td>
                 </tr>
               </thead>
               <tbody>
