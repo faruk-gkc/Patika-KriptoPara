@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
 import Coin from "./components/Coin";
+import './components/App.css' 
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState(true);
+  const [theme, setTheme] = useState(false);
 
   useEffect(() => {
     axios
@@ -30,20 +32,33 @@ const App = () => {
   coin.name.toLowerCase().includes(search.toString().toLowerCase())
 );
 
+const handleDarkMode = () => {
+  const body = document.querySelector("body");
+  theme ? body.classList.remove("bg-dark") : body.classList.add("bg-dark");
+  setTheme(!theme);
+};
+
   return (
-    <div className="container">
-      <h3 className="text-center">Kripto Para</h3>
+    <div className={ (theme) ? 'container text-white' : 'container'} >
+      <h3 className="text-center display-4 mb-3">Kripto Para Uygulaması</h3>
+      <hr />
       <form className="text-center mb-3">
         <input type="text" placeholder="Search.." onChange={handleChange} />
       </form>
-      <div className="text-center">
+      <div className="DarkMode" >
+      <label className="switch" onChange={handleDarkMode} >
+        <input type="checkbox" defaultChecked={theme === 'dark' ? true : false} />
+        <span className="slider round" ></span>
+      </label>
+    </div>
+      <div className="text-center ">
         {isLoading ? (
           <BeatLoader color="blue" />
         ) : (
           <>
-            <table className="table mx-auto">
+            <table className={ (theme) ? 'table table-dark mx-auto' : 'table mx-auto'}>
               <thead>
-                <tr>
+                <tr className>
                   <td className="p-2">Image</td>
                   <td className="p-2">Name</td>
                   <td className="p-2">Price</td>
