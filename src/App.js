@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
-import Coin from './components/Coin'
+import Coin from "./components/Coin";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +12,7 @@ const App = () => {
     axios
       .get(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+        
       )
       .then((res) => {
         setCoins(res.data);
@@ -21,15 +22,20 @@ const App = () => {
   }, []);
 
   console.log(coins);
-	const filteredCoins = coins.filter((coin) =>
-    <>
-      coin.name.toLowerCase().includes(search.toLowerCase())
-  </>
-    
-  );
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const filteredCoins = coins.filter((coin) =>
+  coin.name.toLowerCase().includes(search.toString().toLowerCase())
+);
+
   return (
     <div className="container">
       <h3 className="text-center">Kripto Para</h3>
+      <form className="text-center mb-3">
+        <input type="text" placeholder="Search.." onChange={handleChange} />
+      </form>
       <div className="text-center">
         {isLoading ? (
           <BeatLoader color="blue" />
@@ -38,30 +44,30 @@ const App = () => {
             <table className="table mx-auto">
               <thead>
                 <tr>
-                  <td className="p-4">Image</td>
-                  <td className="p-4">Name</td>
-                  <td className="p-4">Price</td>
-                  <td className="p-4">24H Volume</td>
-                  <td className="p-4">24H % Change</td>
-                  <td className="p-4">Market Cap</td>
+                  <td className="p-2">Image</td>
+                  <td className="p-2">Name</td>
+                  <td className="p-2">Price</td>
+                  <td className="p-2">24H Volume</td>
+                  <td className="p-2">24H % Change</td>
+                  <td className="p-2">Market Cap</td>
                 </tr>
               </thead>
               <tbody>
                 {
-                  filteredCoins.map((coin)=>{
-                    return(
-                      <Coin key={coin.id}
-                      name= {coin.name}
+                filteredCoins.map((coin) => {
+                  return (
+                    <Coin
+                      key={coin.id}
+                      name={coin.name}
                       image={coin.image}
                       symbol={coin.symbol}
                       price={coin.current_price}
                       market_cap={coin.market_cap}
                       total_volume={coin.total_volume}
                       price_change_24h={coin.price_change_percentage_24h}
-                      />
-                    )
-                  })
-                }
+                    />
+                  );
+                })}
               </tbody>
             </table>
           </>
