@@ -1,9 +1,9 @@
 import React from "react";
 
-const Coin = ({ name, image, symbol, price }) => {
+const Coin = ({ name, image, symbol, price,market_cap,total_volume,price_change_24h }) => {
   console.log("Name:", name);
   return (
-    <tr>
+    <tr className="text-center mx-auto">
       <td>
         <img src={image} alt={name} />
       </td>
@@ -12,7 +12,16 @@ const Coin = ({ name, image, symbol, price }) => {
           <small>{symbol.toUpperCase()}</small>
       </td>
       <td>
-          {price}
+          ${price}
+      </td>
+      <td>
+          ${total_volume.toLocaleString()}
+      </td>
+      <td>
+          {price_change_24h.toFixed(2)}%
+      </td>
+      <td>
+          ${market_cap.toLocaleString()}
       </td>
     </tr>
   );

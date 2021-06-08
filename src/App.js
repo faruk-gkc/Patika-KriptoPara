@@ -41,6 +41,9 @@ const App = () => {
                   <td className="p-4">Image</td>
                   <td className="p-4">Name</td>
                   <td className="p-4">Price</td>
+                  <td className="p-4">24H Volume</td>
+                  <td className="p-4">24H % Change</td>
+                  <td className="p-4">Market Cap</td>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +55,9 @@ const App = () => {
                       image={coin.image}
                       symbol={coin.symbol}
                       price={coin.current_price}
+                      market_cap={coin.market_cap}
+                      total_volume={coin.total_volume}
+                      price_change_24h={coin.price_change_percentage_24h}
                       />
                     )
                   })
